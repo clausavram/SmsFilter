@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SmsFilter</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_filters">FiltersActivity</string>
+    <string name="buttonSendText">Send</string>
+    <string name="phoneNumberTextHint">Enter phone number</string>
+    <string name="messageTextHint">Type text message</string>
+    <string name="action_filters">Filters</string>
+    <string name="title_activity_send_sms">Send SMS</string>
+    <string name="filterStartFrom">Start From</string>
+    <string name="startDate">Date</string>
+    <string name="startTime">Time</string>
+    <string name="action_date_filter">New Date Filter</string>
+    <string name="action_time_filter">New Time Filter</string>
+    <string name="filterUntil">Until</string>
+    <string name="filterFrom">Start</string>
+    <string name="endTime">End Time</string>
+    <string name="filterTo">End</string>
+    <string name="saveFilter">Save</string>
+    <string name="phoneNumber">Number\nPattern</string>
+    <string name="messagePattern">Text\nPattern</string>
+    <string name="interval">Start</string>
+    <string name="intervalTo">End</string>
+    <string name="messagePattern1">Text\nPattern</string>
+    <string name="menu_edit_filter">Edit</string>
+    <string name="menu_delete_filter">Delete</string>
+    <string name="action_mark_read">Mark as Read</string>
+    <string name="action_delete">Delete</string>
+    <string name="typePhoneNumber">Type phone number!</string>
+    <string name="typeMessage">Enter message</string>
+    <string name="action_reply">Reply</string>
+    <string name="labelName">Label</string>
+</resources>

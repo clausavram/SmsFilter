@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="sisc.claudiu.SMSBuddyFilterDateActivity"
+    tools:showIn="@layout/activity_new_date_filter">
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/labelName"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editLabelDateText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="5"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:lines="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/phoneNumber"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editPhoneNumberDateText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="5"
+                android:layout_weight="1"
+                android:minLines="2"
+                android:gravity="start"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:maxLines="3"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/messagePattern"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/editMessagePatternDateText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="5"
+                android:layout_weight="1"
+                android:minLines="2"
+                android:ems="10"
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:maxLines="3" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/startIntervalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/filterFrom"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/fromDateText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="5"
+                android:layout_weight="1"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="date"
+                android:lines="1"
+                android:longClickable="true"
+                android:maxLines="1"
+                android:minLines="1"
+                android:onClick="pickFrom"
+                android:singleLine="true" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/filterTo"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/toDateText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="5"
+                android:layout_weight="1"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="date"
+                android:lines="1"
+                android:longClickable="true"
+                android:onClick="pickTo"
+                android:singleLine="true" />
+        </TableRow>
+    </TableLayout>
+
+
+    <Button
+        android:id="@+id/saveDateFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="5"
+        android:onClick="saveDateFilter"
+        android:text="@string/saveFilter"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp" />
+</RelativeLayout>

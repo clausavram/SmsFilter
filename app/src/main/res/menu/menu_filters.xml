@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SMSBuddyFiltersActivity">
+
+    <item
+        android:id="@+id/action_date_filter"
+        android:orderInCategory="100"
+        android:title="@string/action_date_filter"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_time_filter"
+        android:orderInCategory="100"
+        android:title="@string/action_time_filter"
+        app:showAsAction="never" />
+
+</menu>
