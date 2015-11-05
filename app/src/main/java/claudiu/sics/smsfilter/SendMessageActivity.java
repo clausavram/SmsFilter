@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import sisc.claudiu.smsfilter.R;
 
-public class SMSBuddySendMessageActivity extends AppCompatActivity {
+public class SendMessageActivity extends AppCompatActivity {
 
     private EditText phoneNumberText;
     private EditText messageText;
@@ -29,7 +29,7 @@ public class SMSBuddySendMessageActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         if (intent != null) {
-            final String phone = intent.getStringExtra(SMSBuddyResources.PHONE_NUMBER);
+            final String phone = intent.getStringExtra(Resources.PHONE_NUMBER);
             if (phone != null) {
                 phoneNumberText.setText(phone);
                 messageText.requestFocus();

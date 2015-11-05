@@ -22,9 +22,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import sisc.claudiu.smsfilter.R;
 
-public class SMSBuddyMainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private SMSBuddyMessagesAdapter messagesAdapter;
+    private MessagesAdapter messagesAdapter;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
 
@@ -33,7 +33,7 @@ public class SMSBuddyMainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (messagesAdapter != null) {
                 messagesAdapter.notifyDataSetChanged();
-                Toast.makeText(SMSBuddyMainActivity.this, "Updated message view: " + messagesAdapter.getCount(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Updated message view: " + messagesAdapter.getCount(), Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -48,12 +48,12 @@ public class SMSBuddyMainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SMSBuddyMainActivity.this, SMSBuddySendMessageActivity.class));
+                startActivity(new Intent(MainActivity.this, SendMessageActivity.class));
             }
         });
 
-        messagesAdapter = new SMSBuddyMessagesAdapter();
-        messagesAdapter.setManager(((SMSBuddyApp) getApplication()).getManager());
+        messagesAdapter = new MessagesAdapter();
+        messagesAdapter.setManager(((Application) getApplication()).getManager());
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(messagesAdapter);
         registerForContextMenu(listView);
@@ -85,7 +85,7 @@ public class SMSBuddyMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(smsSavedReceiver, new IntentFilter(SMSBuddyResources.ACTION_SMS_CHANGED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(smsSavedReceiver, new IntentFilter(Resources.ACTION_SMS_CHANGED));
         Log.d(getClass().getSimpleName(), "registered local broadcast receiver");
 
         messagesAdapter.notifyDataSetChanged();
@@ -108,7 +108,7 @@ public class SMSBuddyMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_filters) {
-            startActivity(new Intent(this, SMSBuddyFiltersActivity.class));
+            startActivity(new Intent(this, FiltersActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -126,27 +126,27 @@ public class SMSBuddyMainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         if (R.id.action_respond == item.getItemId()) {
             final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            final SMSBuddyMessage message = (SMSBuddyMessage) messagesAdapter.getItem(info.position);
+            final Message message = (Message) messagesAdapter.getItem(info.position);
             if (message != null) {
                 final String phone = message.getPhone();
-                final Intent intent = new Intent(SMSBuddyMainActivity.this, SMSBuddySendMessageActivity.class);
-                intent.putExtra(SMSBuddyResources.PHONE_NUMBER, phone);
+                final Intent intent = new Intent(MainActivity.this, SendMessageActivity.class);
+                intent.putExtra(Resources.PHONE_NUMBER, phone);
                 startActivity(intent);
-                SMSBuddyService.startActionHandleSMSHandled(getApplicationContext(), message);
+                FilterService.startActionHandleSMSHandled(getApplicationContext(), message);
             }
             return true;
         } else if (R.id.action_delete == item.getItemId()) {
             final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            final SMSBuddyMessage message = (SMSBuddyMessage) messagesAdapter.getItem(info.position);
+            final Message message = (Message) messagesAdapter.getItem(info.position);
             if (message != null) {
-                SMSBuddyService.startActionHandleSMSDelete(getApplicationContext(), message);
+                FilterService.startActionHandleSMSDelete(getApplicationContext(), message);
             }
             return true;
         } else if (R.id.action_mark_handled == item.getItemId()) {
             final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            final SMSBuddyMessage message = (SMSBuddyMessage) messagesAdapter.getItem(info.position);
+            final Message message = (Message) messagesAdapter.getItem(info.position);
             if (message != null) {
-                SMSBuddyService.startActionHandleSMSHandled(getApplicationContext(), message);
+                FilterService.startActionHandleSMSHandled(getApplicationContext(), message);
             }
             return true;
         }

@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import sisc.claudiu.smsfilter.R;
 
-public class SMSBuddyFiltersAdapter extends BaseAdapter {
+public class FiltersAdapter extends BaseAdapter {
 
     private SMSManagerDefault manager;
 
@@ -43,7 +43,7 @@ public class SMSBuddyFiltersAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             convertView = layoutInflater.inflate(R.layout.filter_layout, parent, false);
         }
-        final SMSBuddyFilter m = (SMSBuddyFilter) getItem(position);
+        final Filter m = (Filter) getItem(position);
 
         TextView labelText = (TextView) convertView.findViewById(R.id.labelFilter);
         SpannableString labelSpan = new SpannableString(m.getLabel());

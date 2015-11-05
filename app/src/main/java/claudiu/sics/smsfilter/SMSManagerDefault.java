@@ -15,9 +15,9 @@ import claudiu.sics.smsfilter.db.SMSDBSchema;
 
 public class SMSManagerDefault implements SMSManager {
 
-    private List<SMSBuddyFilter> filters = new ArrayList<>();
+    private List<Filter> filters = new ArrayList<>();
     private final SMSDB db;
-    private DateFormat dateFormat = new SimpleDateFormat(SMSBuddyResources.FORMAT_YYYY_MM_DD_HH_MM_SS);
+    private DateFormat dateFormat = new SimpleDateFormat(Resources.FORMAT_YYYY_MM_DD_HH_MM_SS);
 
     public SMSManagerDefault(Context context) {
         filters.add(createFilter("1234", "(mouse|cat|dog|rabbit|bird|fish)", "00:00", "23:59", false));
@@ -28,8 +28,8 @@ public class SMSManagerDefault implements SMSManager {
     }
 
     @Override
-    public List<SMSBuddyMessage> getMessages() {
-        List<SMSBuddyMessage> tmp = new ArrayList<>();
+    public List<Message> getMessages() {
+        List<Message> tmp = new ArrayList<>();
         Cursor c = db.getMessages();
         int ciId = c.getColumnIndex(SMSDBSchema.MessagesTable._ID);
         int ciPhone = c.getColumnIndex(SMSDBSchema.MessagesTable.COLUMN_NAME_PHONE_NUMBER);
@@ -38,7 +38,7 @@ public class SMSManagerDefault implements SMSManager {
         int ciRead = c.getColumnIndex(SMSDBSchema.MessagesTable.COLUMN_NAME_READ);
         while (c.moveToNext()) {
             try {
-                SMSBuddyMessage m = new SMSBuddyMessage();
+                Message m = new Message();
                 m.setId(c.getInt(ciId));
                 m.setPhone(c.getString(ciPhone));
                 m.setMessage(c.getString(ciMessage));
@@ -55,19 +55,19 @@ public class SMSManagerDefault implements SMSManager {
     }
 
     @Override
-    public void saveSMS(SMSBuddyMessage message) {
+    public void saveSMS(Message message) {
         db.insertMessage(message);
         Log.d(getClass().getSimpleName(), "Saved message into DB: " + message);
     }
 
     @Override
-    public void deleteSMS(SMSBuddyMessage message) {
+    public void deleteSMS(Message message) {
         db.removeMessage(message);
         Log.d(getClass().getSimpleName(), "Deleted message from DB: " + message);
     }
 
     @Override
-    public void markSMSRead(SMSBuddyMessage message) {
+    public void markSMSRead(Message message) {
         long rowCount = db.markMessageRead(message);
         Log.d(getClass().getSimpleName(), "Marked message as 'read' into DB: " + message + " (affected rows: " + rowCount + ")");
     }
@@ -78,8 +78,8 @@ public class SMSManagerDefault implements SMSManager {
     }
 
     @Override
-    public List<SMSBuddyFilter> getFilters() {
-        List<SMSBuddyFilter> tmp = new ArrayList<>();
+    public List<Filter> getFilters() {
+        List<Filter> tmp = new ArrayList<>();
         Cursor c = db.getFilters();
         int ciId = c.getColumnIndex(SMSDBSchema.FilstersTable._ID);
         int ciLabel = c.getColumnIndex(SMSDBSchema.FilstersTable.COLUMN_NAME_LABEL);
@@ -90,7 +90,7 @@ public class SMSManagerDefault implements SMSManager {
         int ciIsDate = c.getColumnIndex(SMSDBSchema.FilstersTable.COLUMN_NAME_IS_DATE_FILTER);
         while(c.moveToNext()) {
             try {
-                SMSBuddyFilter f = new SMSBuddyFilter();
+                Filter f = new Filter();
                 f.setId(c.getInt(ciId));
                 f.setLabel(c.getString(ciLabel));
                 f.setStartTime(c.getString(ciStart));
@@ -108,7 +108,7 @@ public class SMSManagerDefault implements SMSManager {
     }
 
     @Override
-    public void saveFilter(SMSBuddyFilter filter) {
+    public void saveFilter(Filter filter) {
         if (filter.getId() == -1) {
             insertFilter(filter);
         } else {
@@ -117,7 +117,7 @@ public class SMSManagerDefault implements SMSManager {
     }
 
     @Override
-    public void deleteFilter(SMSBuddyFilter filter) {
+    public void deleteFilter(Filter filter) {
         db.removeFilter(filter);
     }
 
@@ -126,16 +126,16 @@ public class SMSManagerDefault implements SMSManager {
         return getFilters().size();
     }
 
-    private void insertFilter(SMSBuddyFilter filter) {
+    private void insertFilter(Filter filter) {
         db.insertFilter(filter);
     }
 
-    private void updateFilter(SMSBuddyFilter filter) {
+    private void updateFilter(Filter filter) {
         db.updateFilter(filter);
     }
 
-    private SMSBuddyFilter createFilter(String phone, String pattern, String from, String to, boolean dateFilter) {
-        SMSBuddyFilter f = new SMSBuddyFilter();
+    private Filter createFilter(String phone, String pattern, String from, String to, boolean dateFilter) {
+        Filter f = new Filter();
         f.setId(System.nanoTime());
         f.setPhonePattern(phone);
         f.setStartTime(from);

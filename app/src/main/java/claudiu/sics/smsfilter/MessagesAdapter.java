@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import sisc.claudiu.smsfilter.R;
 
-public class SMSBuddyMessagesAdapter extends BaseAdapter {
+public class MessagesAdapter extends BaseAdapter {
 
     private SMSManagerDefault manager;
 
@@ -45,13 +45,13 @@ public class SMSBuddyMessagesAdapter extends BaseAdapter {
             final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             convertView = layoutInflater.inflate(R.layout.sms_layout, parent, false);
         }
-        final SMSBuddyMessage m = (SMSBuddyMessage) getItem(position);
+        final Message m = (Message) getItem(position);
 
         TextView phone = (TextView) convertView.findViewById(R.id.phoneNumber);
         phone.setText(m.getPhone());
         phone.setTypeface(null, m.isRead() ? Typeface.NORMAL : Typeface.BOLD);
 
-        final CharSequence formatedTimestamp = DateFormat.format(SMSBuddyResources.FORMAT_YYYY_MM_DD_HH_MM_SS, m.getTimestamp());
+        final CharSequence formatedTimestamp = DateFormat.format(Resources.FORMAT_YYYY_MM_DD_HH_MM_SS, m.getTimestamp());
         TextView timestamp = (TextView) convertView.findViewById(R.id.timestamp);
         timestamp.setText(formatedTimestamp);
         timestamp.setTypeface(null, m.isRead() ? Typeface.NORMAL : Typeface.BOLD);

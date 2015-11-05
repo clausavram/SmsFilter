@@ -10,19 +10,19 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import claudiu.sics.smsfilter.SMSBuddyFilter;
-import claudiu.sics.smsfilter.SMSBuddyMessage;
-import claudiu.sics.smsfilter.SMSBuddyResources;
+import claudiu.sics.smsfilter.Filter;
+import claudiu.sics.smsfilter.Message;
+import claudiu.sics.smsfilter.Resources;
 
 public class SMSDB {
     private SMSDBHelper hDBHelper;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat(SMSBuddyResources.FORMAT_YYYY_MM_DD_HH_MM_SS, Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat(Resources.FORMAT_YYYY_MM_DD_HH_MM_SS, Locale.getDefault());
 
     public SMSDB(Context context) {
         hDBHelper = new SMSDBHelper(context);
     }
 
-    public long insertMessage(SMSBuddyMessage m) {
+    public long insertMessage(Message m) {
         SQLiteDatabase db = hDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -34,7 +34,7 @@ public class SMSDB {
         return db.insert(SMSDBSchema.MessagesTable.TABLE_NAME, null, values);
     }
 
-    public long markMessageRead(SMSBuddyMessage m) {
+    public long markMessageRead(Message m) {
         Log.d(getClass().getSimpleName(), "Update on: " + m + "(most important: id = " + m.getId() + ")");
         SQLiteDatabase db = hDBHelper.getWritableDatabase();
 
@@ -50,7 +50,7 @@ public class SMSDB {
         return count;
     }
 
-    public int removeMessage(SMSBuddyMessage m) {
+    public int removeMessage(Message m) {
         SQLiteDatabase db = hDBHelper.getWritableDatabase();
 
         return db.delete(SMSDBSchema.MessagesTable.TABLE_NAME,
@@ -74,7 +74,7 @@ public class SMSDB {
         return db.query(SMSDBSchema.MessagesTable.TABLE_NAME, projection, null, null, null, null, sortOrder);
     }
 
-    public long insertFilter(SMSBuddyFilter f) {
+    public long insertFilter(Filter f) {
         SQLiteDatabase db = hDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -88,7 +88,7 @@ public class SMSDB {
         return db.insert(SMSDBSchema.FilstersTable.TABLE_NAME, null, values);
     }
 
-    public long removeFilter(SMSBuddyFilter f) {
+    public long removeFilter(Filter f) {
         SQLiteDatabase db = hDBHelper.getWritableDatabase();
 
         return db.delete(SMSDBSchema.FilstersTable.TABLE_NAME,
@@ -97,7 +97,7 @@ public class SMSDB {
         );
     }
 
-    public int updateFilter(SMSBuddyFilter f) {
+    public int updateFilter(Filter f) {
         SQLiteDatabase db = hDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();

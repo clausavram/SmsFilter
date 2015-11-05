@@ -7,21 +7,21 @@ import java.util.List;
  */
 public interface SMSManager {
 
-    List<SMSBuddyMessage> getMessages();
+    List<Message> getMessages();
 
-    void markSMSRead(SMSBuddyMessage message);
+    void markSMSRead(Message message);
 
-    void deleteSMS(SMSBuddyMessage message);
+    void deleteSMS(Message message);
 
-    void saveSMS(SMSBuddyMessage message);
+    void saveSMS(Message message);
 
     int getMessageCount();
 
-    List<SMSBuddyFilter> getFilters();
+    List<Filter> getFilters();
 
-    void saveFilter(SMSBuddyFilter filter);
+    void saveFilter(Filter filter);
 
-    void deleteFilter(SMSBuddyFilter filter);
+    void deleteFilter(Filter filter);
 
     int countFilters();
 

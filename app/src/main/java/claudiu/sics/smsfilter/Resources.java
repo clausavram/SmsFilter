@@ -1,6 +1,6 @@
 package claudiu.sics.smsfilter;
 
-public interface SMSBuddyResources {
+public interface Resources {
 
     String PHONE_NUMBER = "phone";
     String EDIT_FILTER = "updateFilter";

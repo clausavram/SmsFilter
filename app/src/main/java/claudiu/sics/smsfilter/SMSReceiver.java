@@ -11,11 +11,11 @@ import android.util.Log;
 import java.util.Date;
 import java.util.List;
 
-public class SMSBuddySMSReceiver extends BroadcastReceiver {
+public class SMSReceiver extends BroadcastReceiver {
 
     private final SmsManager smsManager;
 
-    public SMSBuddySMSReceiver() {
+    public SMSReceiver() {
         smsManager = SmsManager.getDefault();
     }
 
@@ -36,11 +36,11 @@ public class SMSBuddySMSReceiver extends BroadcastReceiver {
                     Log.i(getClass().getSimpleName(), "senderNum: " + phoneNumber + "; message: " + message);
                     final boolean abortBroadcats = handleActionReceivedSMS(context, phoneNumber, message, timestamp);
                     if (abortBroadcats) {
-                        final SMSBuddyMessage smsBuddyMessage = new SMSBuddyMessage();
+                        final Message smsBuddyMessage = new Message();
                         smsBuddyMessage.setPhone(phoneNumber);
                         smsBuddyMessage.setMessage(message);
                         smsBuddyMessage.setTimestamp(timestamp);
-                        SMSBuddyService.startActionHandleReceivedSMS(context, smsBuddyMessage);
+                        FilterService.startActionHandleReceivedSMS(context, smsBuddyMessage);
                         abortBroadcast();
                     }
                 }
@@ -53,15 +53,15 @@ public class SMSBuddySMSReceiver extends BroadcastReceiver {
     private boolean handleActionReceivedSMS(final Context context, final String phone, final String message, final Date timestamp) {
         boolean shouldAbortBroadcast = false;
 
-        final SMSBuddyMessage smsBuddyMessage = new SMSBuddyMessage();
+        final Message smsBuddyMessage = new Message();
         smsBuddyMessage.setPhone(phone);
         smsBuddyMessage.setMessage(message);
         smsBuddyMessage.setTimestamp(timestamp);
         smsBuddyMessage.setHandled(false);
 
-        final SMSManagerDefault manager = ((SMSBuddyApp) context.getApplicationContext()).getManager();
-        final List<SMSBuddyFilter> filters = manager.getFilters();
-        for (final SMSBuddyFilter filter : filters) {
+        final SMSManagerDefault manager = ((Application) context.getApplicationContext()).getManager();
+        final List<Filter> filters = manager.getFilters();
+        for (final Filter filter : filters) {
 
             if (filter.matches(smsBuddyMessage)) {
                 Log.i(getClass().getSimpleName(), "Found filter matching SMS " + smsBuddyMessage + ": " + filter);

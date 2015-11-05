@@ -7,9 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import sisc.claudiu.smsfilter.R;
 
-public class SMSBuddyFilter implements Serializable {
+public class Filter implements Serializable {
 
     private long id = -1;
     private String label;
@@ -75,7 +74,7 @@ public class SMSBuddyFilter implements Serializable {
         this.label = name;
     }
 
-    private boolean phoneMatch(SMSBuddyMessage message) {
+    private boolean phoneMatch(Message message) {
         return (phone == null && message.getPhone() == null) ||
                 (phone != null &&
                         (phone.isEmpty()
@@ -83,20 +82,20 @@ public class SMSBuddyFilter implements Serializable {
                 );
     }
 
-    private boolean contentMatch(SMSBuddyMessage message) {
+    private boolean contentMatch(Message message) {
         return (messagePattern == null && message.getMessage() == null) ||
                 (messagePattern != null && message.getMessage() != null &&
                         (messagePattern.equals(message.getMessage()) || message.getMessage().matches(messagePattern)));
     }
 
-    public boolean matches(SMSBuddyMessage smsBuddyMessage) {
+    public boolean matches(Message message) {
         Log.d(getClass().getSimpleName(), toString());
-        boolean phoneMatch = phoneMatch(smsBuddyMessage);
+        boolean phoneMatch = phoneMatch(message);
         if (!phoneMatch) {
             Log.d(getClass().getSimpleName(), "phone not matching");
             return false;
         }
-        boolean contentMatch = contentMatch(smsBuddyMessage);
+        boolean contentMatch = contentMatch(message);
         if (!contentMatch) {
             Log.d(getClass().getSimpleName(), "content not matching");
             return false;
@@ -104,24 +103,24 @@ public class SMSBuddyFilter implements Serializable {
         try {
             if (isDateFilter()) {
                 Date from = parseToDate(getStartTime(), true);
-                if (from != null && !from.before(smsBuddyMessage.getTimestamp())) {
-                    Log.d(getClass().getSimpleName(), "FROM DATE not matching (from=" + from + ") current " + smsBuddyMessage.getTimestamp());
+                if (from != null && !from.before(message.getTimestamp())) {
+                    Log.d(getClass().getSimpleName(), "FROM DATE not matching (from=" + from + ") current " + message.getTimestamp());
                     return false;
                 }
                 Date to = parseToDate(getEndTime(), false);
-                if (to != null && !smsBuddyMessage.getTimestamp().before(to)) {
-                    Log.d(getClass().getSimpleName(), "TO DATE not matching (to=" + to + ") current " + smsBuddyMessage.getTimestamp());
+                if (to != null && !message.getTimestamp().before(to)) {
+                    Log.d(getClass().getSimpleName(), "TO DATE not matching (to=" + to + ") current " + message.getTimestamp());
                     return false;
                 }
             } else {
-                Date from = parseToTime(smsBuddyMessage.getTimestamp(), getStartTime(), true);
-                if (from != null && !from.before(smsBuddyMessage.getTimestamp())) {
-                    Log.d(getClass().getSimpleName(), "FROM TIME not matching (from=" + from + ") current " + smsBuddyMessage.getTimestamp());
+                Date from = parseToTime(message.getTimestamp(), getStartTime(), true);
+                if (from != null && !from.before(message.getTimestamp())) {
+                    Log.d(getClass().getSimpleName(), "FROM TIME not matching (from=" + from + ") current " + message.getTimestamp());
                     return false;
                 }
-                Date to = parseToTime(smsBuddyMessage.getTimestamp(), getEndTime(), false);
-                if (to != null && !smsBuddyMessage.getTimestamp().before(to)) {
-                    Log.d(getClass().getSimpleName(), "TO TIME not matching (to=" + to + ") current " + smsBuddyMessage.getTimestamp());
+                Date to = parseToTime(message.getTimestamp(), getEndTime(), false);
+                if (to != null && !message.getTimestamp().before(to)) {
+                    Log.d(getClass().getSimpleName(), "TO TIME not matching (to=" + to + ") current " + message.getTimestamp());
                     return false;
                 }
             }
@@ -136,7 +135,7 @@ public class SMSBuddyFilter implements Serializable {
         if (date == null) {
             return null;
         }
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SMSBuddyResources.FORMAT_HH_MM);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Resources.FORMAT_HH_MM);
         final Date parse = simpleDateFormat.parse(date);
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(parse);
@@ -161,7 +160,7 @@ public class SMSBuddyFilter implements Serializable {
         if (date == null) {
             return null;
         }
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(SMSBuddyResources.FORMAT_YYYY_MM_DD);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Resources.FORMAT_YYYY_MM_DD);
         final Date parse = simpleDateFormat.parse(date);
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(parse);
@@ -184,7 +183,7 @@ public class SMSBuddyFilter implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SMSBuddyFilter that = (SMSBuddyFilter) o;
+        Filter that = (Filter) o;
 
         if (getId() != that.getId()) return false;
         if (isDateFilter() != that.isDateFilter()) return false;
@@ -211,7 +210,7 @@ public class SMSBuddyFilter implements Serializable {
 
     @Override
     public String toString() {
-        return "SMSBuddyFilter{" +
+        return "Filter{" +
                 "label=" + label +
                 ", id=" + id +
                 ", startTime='" + startTime + '\'' +

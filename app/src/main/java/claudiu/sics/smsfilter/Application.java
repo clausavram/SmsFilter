@@ -1,8 +1,6 @@
 package claudiu.sics.smsfilter;
 
-import android.app.Application;
-
-public class SMSBuddyApp extends Application {
+public class Application extends android.app.Application {
 
     private SMSManagerDefault manager;
 

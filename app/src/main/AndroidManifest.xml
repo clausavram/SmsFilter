@@ -9,14 +9,14 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
-        android:name="claudiu.sics.smsfilter.SMSBuddyApp"
+        android:name="claudiu.sics.smsfilter.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="claudiu.sics.smsfilter.SMSBuddyMainActivity"
+            android:name="claudiu.sics.smsfilter.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,38 +26,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="claudiu.sics.smsfilter.SMSBuddyFiltersActivity"
+            android:name="claudiu.sics.smsfilter.FiltersActivity"
             android:label="@string/title_activity_filters"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="claudiu.sics.smsfilter.SMSBuddyMainActivity" />
+                android:value="claudiu.sics.smsfilter.MainActivity" />
         </activity>
-        <activity android:name="claudiu.sics.smsfilter.SMSBuddyFilterDateActivity">
+        <activity android:name="claudiu.sics.smsfilter.FilterDateActivity">
             android:label="@string/title_activity_date_filter"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="claudiu.sics.smsfilter.SMSBuddyFiltersActivity" />
+                android:value="claudiu.sics.smsfilter.FiltersActivity" />
         </activity>
-        <activity android:name="claudiu.sics.smsfilter.SMSBuddyFilterTimeActivity">
+        <activity android:name="claudiu.sics.smsfilter.FilterTimeActivity">
             android:label="@string/title_activity_time_filter"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="claudiu.sics.smsfilter.SMSBuddyFiltersActivity" />
+                android:value="claudiu.sics.smsfilter.FiltersActivity" />
         </activity>
         <activity
-            android:name="claudiu.sics.smsfilter.SMSBuddySendMessageActivity"
+            android:name="claudiu.sics.smsfilter.SendMessageActivity"
             android:label="@string/title_activity_send_sms"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="claudiu.sics.smsfilter.SMSBuddyMainActivity" />
+                android:value="claudiu.sics.smsfilter.MainActivity" />
         </activity>
 
         <receiver
-            android:name="claudiu.sics.smsfilter.SMSBuddySMSReceiver"
+            android:name="claudiu.sics.smsfilter.SMSReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
@@ -66,7 +66,7 @@
         </receiver>
 
         <service
-            android:name="claudiu.sics.smsfilter.SMSBuddyService"
+            android:name="claudiu.sics.smsfilter.FilterService"
             android:exported="false" />
 
     </application>

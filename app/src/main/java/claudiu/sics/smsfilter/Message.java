@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by cosming on 10/31/15.
  */
-public class SMSBuddyMessage implements Serializable {
+public class Message implements Serializable {
 
     private long id = -1;
     private String phone;
@@ -59,7 +59,7 @@ public class SMSBuddyMessage implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SMSBuddyMessage that = (SMSBuddyMessage) o;
+        Message that = (Message) o;
 
         if (getId() != that.getId()) return false;
         if (isRead() != that.isRead()) return false;
@@ -83,7 +83,7 @@ public class SMSBuddyMessage implements Serializable {
 
     @Override
     public String toString() {
-        return "SMSBuddyMessage{" +
+        return "Message{" +
                 "id=" + id +
                 ", phone='" + phone + '\'' +
                 ", message='" + message + '\'' +
